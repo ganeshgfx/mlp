@@ -1,0 +1,103 @@
+[[[[[[[[[[[[[[[[[[[[[[[[[Practical 5]]]]]]]]]]]]]]]]]]]]]]]
+[AIM: Write a program to implement Naïve Bayes Classifier.]
+
+import pandas as pd  
+from sklearn.model_selection import train_test_split  
+from sklearn.metrics import accuracy_score  
+from sklearn.naive_bayes import GaussianNB
+ 
+data = pd.read_csv("data.csv")
+ 
+ 
+predictors = data.iloc[:,0:7] 
+ 
+target = data.iloc[:,7] 
+ 
+predictors_train, predictors_test, target_train, target_test =  train_test_split(predictors, target, test_size = 0.2, random_state  = 123)
+ 
+gnb = GaussianNB()  
+ 
+model = gnb.fit(predictors_train, target_train)  
+ 
+prediction = model.predict(predictors_test)  
+ 
+accuracy_score(target_test, prediction, normalize = True)
+
+[[[[[[[[[[[[[[[[[[[[[[[[[Practical 7]]]]]]]]]]]]]]]]]]]]]]]
+[AIM: Write a program to implement a Decision Tree algorithm to classify the data set.]
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.tree import DecisionTreeClassifier
+ 
+data = pd.read_csv("apndcts.csv")
+ 
+predictors = data.iloc[:,0:7] 
+ 
+target = data.iloc[:,7] 
+ 
+predictors_train, predictors_test, target_train, target_test = train_test_split(predictors, target, test_size = 0.3, random_state = 123)
+ 
+dtree_entropy = DecisionTreeClassifier(criterion = "entropy", random_state = 100, max_depth=3, min_samples_leaf=5)
+ 
+model = dtree_entropy.fit(predictors_train, target_train)
+ 
+model
+
+prediction = dtree_entropy.predict(predictors_test)
+ 
+accuracy_score(target_test, prediction, normalize = True)
+
+[[[[[[[[[[[[[[[[[[[[[[[[[Practical 8]]]]]]]]]]]]]]]]]]]]]]]
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn import svm
+ 
+data = pd.read_csv(“apndcts.csv")
+ 
+predictors = data.iloc[:,0:7] 
+ 
+target = data.iloc[:,7] 
+ 
+predictors_train, predictors_test, target_train, target_test = train_test_split(predictors, target, test_size = 0.3, random_state = 123)
+ 
+svm = svm.SVC(kernel='linear') # SVC with linear kernel
+ 
+ 
+model = svm.fit(predictors_train, target_train)
+ 
+prediction = svm.predict(predictors_test)
+ 
+prediction 
+ 
+accuracy_score(target_test,prediction, normalize = True)
+
+
+[[[[[[[[[[[[[[[[[[[[[[[[[Practical 9]]]]]]]]]]]]]]]]]]]]]]]
+[AIM: Write a program to implement Random Forest algorithm to classify the data set.]
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+from sklearn.ensemble import RandomForestClassifier
+ 
+data = pd.read_csv("apndcts.csv")
+ 
+predictors = data.iloc[:,0:7] 
+ 
+target = data.iloc[:,7] 
+ 
+predictors_train, predictors_test, target_train, target_test = train_test_split(predictors, target, test_size = 0.3, random_state = 123)
+ 
+rf = RandomForestClassifier()
+ 
+model = rf.fit(predictors_train, target_train)
+ 
+prediction = rf.predict(predictors_test)
+ 
+prediction
+
+accuracy_score(target_test, prediction, normalize = True)
